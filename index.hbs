@@ -1,0 +1,94 @@
+{{!< default}}
+
+<main class="site-main home-main">
+
+    {{! ── Hero ── }}
+    <section class="home-hero">
+        <div class="container">
+            <p class="home-hero-eyebrow fade-up">bit.transfer</p>
+            <h1 class="home-hero-title fade-up" style="transition-delay:.05s">
+                Wissenschaft.<br>
+                <span class="home-hero-title-muted">Wird Handwerk.</span>
+            </h1>
+            <p class="home-hero-desc fade-up" style="transition-delay:.1s">{{@site.description}}</p>
+        </div>
+    </section>
+
+    {{! ── Posts Feed ── }}
+    <section class="home-feed">
+        <div class="container">
+            <div class="posts-feed">
+                {{#foreach posts}}
+                <article class="feed-item {{post_class}}">
+                    <a href="{{url}}" class="feed-item-link">
+                        <div class="feed-item-image">
+                            {{#if feature_image}}
+                            <img
+                                src="{{img_url feature_image size="md"}}"
+                                alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                                loading="{{#if @first}}eager{{else}}lazy{{/if}}">
+                            {{else}}
+                            <div class="feed-item-placeholder">
+                                {{#if primary_tag}}<span>{{primary_tag.name}}</span>{{else}}<span>Dossier</span>{{/if}}
+                            </div>
+                            {{/if}}
+                        </div>
+                        <div class="feed-item-body">
+                            {{#if primary_tag}}
+                            <span class="feed-item-tag">{{primary_tag.name}}</span>
+                            {{/if}}
+                            <h3 class="feed-item-title">{{title}}</h3>
+                            {{#if excerpt}}
+                            <p class="feed-item-excerpt">{{excerpt words="25"}}</p>
+                            {{/if}}
+                            <div class="feed-item-meta">
+                                <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD. MMMM YYYY"}}</time>
+                                <span class="feed-item-reading-time">{{reading_time}}</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+                {{/foreach}}
+            </div>
+
+            {{#if pagination.next}}
+            <div class="feed-more fade-up">
+                <a href="{{page_url pagination.next}}" class="btn-pill-outline">Weitere Dossiers</a>
+            </div>
+            {{/if}}
+        </div>
+    </section>
+
+    {{! ── Newsletter CTA ── }}
+    <section class="newsletter-cta fade-up">
+        <div class="container">
+            <div class="newsletter-cta-inner">
+                <div class="newsletter-cta-text">
+                    <h2 class="newsletter-cta-heading">Wissenschaft. Wird Handwerk.</h2>
+                    <p class="newsletter-cta-desc">{{@custom.sidebar_newsletter_text}}</p>
+                </div>
+                <a href="#/portal/signup" class="btn-pill-dark">{{@custom.newsletter_signup_label}}</a>
+            </div>
+        </div>
+    </section>
+
+    {{! ── Gewerke ── }}
+    <section class="gewerke-section fade-up">
+        <div class="container">
+            <h2 class="gewerke-heading">Forschungstransfer nach Gewerk.</h2>
+            <div class="gewerke-pills">
+                <a href="/tag/tischler/" class="gewerk-pill">Tischler &amp; Schreiner</a>
+                <a href="/tag/maurer/" class="gewerk-pill">Maurer</a>
+                <a href="/tag/zimmerer/" class="gewerk-pill">Zimmerer</a>
+                <a href="/tag/shk/" class="gewerk-pill">Sanitär, Heizung, Klima</a>
+                <a href="/tag/elektroinstallateur/" class="gewerk-pill">Elektroinstallateur</a>
+                <a href="/tag/maler-lackierer/" class="gewerk-pill">Maler &amp; Lackierer</a>
+                <a href="/tag/metallbauer/" class="gewerk-pill">Metallbauer</a>
+                <a href="/tag/stuckateur/" class="gewerk-pill">Stuckateur</a>
+                <a href="/tag/kfz-mechatroniker/" class="gewerk-pill">Kfz-Mechatroniker</a>
+                <a href="/tag/baecker/" class="gewerk-pill">Bäcker</a>
+            </div>
+        </div>
+    </section>
+
+</main>

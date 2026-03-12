@@ -1,0 +1,11 @@
+{{#if pagination}}
+<nav class="pagination" aria-label="Seitennavigation">
+    {{#if pagination.prev}}
+    <a href="{{page_url pagination.prev}}" class="pagination-prev">← Neuere Artikel</a>
+    {{/if}}
+    <span class="pagination-info">{{pagination.page}} von {{pagination.pages}}</span>
+    {{#if pagination.next}}
+    <a href="{{page_url pagination.next}}" class="pagination-next">Ältere Artikel →</a>
+    {{/if}}
+</nav>
+{{/if}}

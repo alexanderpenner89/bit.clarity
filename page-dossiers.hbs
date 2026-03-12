@@ -1,0 +1,109 @@
+{{!< default}}
+
+{{#page}}
+<main class="site-main dossiers-main">
+    <div class="container">
+
+        <header class="dossiers-page-header fade-up">
+            <h1 class="dossiers-page-title">Die Dossiers.</h1>
+            <p class="dossiers-page-desc">Unser gesamtes Archiv. Suchen Sie nach Werkstoffen, Studien oder Prozessen.</p>
+
+            <div class="dossiers-search-wrap">
+                <svg class="dossiers-search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                <input
+                    type="search"
+                    id="dossiers-search"
+                    class="dossiers-search-input"
+                    placeholder="Z.B. 'Flammschutz', 'Bor' oder 'Alginat' …"
+                    autocomplete="off">
+            </div>
+
+            <div class="dossiers-filters" id="dossiers-filters">
+                <button class="dossier-filter-pill active" data-filter="">Alle</button>
+                {{#get "tags" filter="visibility:public+slug:-[bit-transfer,news,newsletter,intern]" limit="20" order="count.posts desc"}}
+                {{#foreach tags}}
+                <button class="dossier-filter-pill" data-filter="{{slug}}">{{name}}</button>
+                {{/foreach}}
+                {{/get}}
+            </div>
+        </header>
+
+        {{! ── Featured (latest post) ── }}
+        {{#get "posts" limit="1" order="published_at desc"}}
+        {{#foreach posts}}
+        <div class="dossiers-featured fade-up" id="dossiers-featured">
+            <p class="dossiers-featured-label">Neuestes Release</p>
+            <a href="{{url}}" class="dossiers-featured-card">
+                <div class="dossiers-featured-body">
+                    {{#if primary_tag}}
+                    <span class="dossiers-featured-tag">{{primary_tag.name}}</span>
+                    {{/if}}
+                    <h3 class="dossiers-featured-title">{{title}}</h3>
+                    {{#if excerpt}}
+                    <p class="dossiers-featured-excerpt">{{excerpt words="30"}}</p>
+                    {{/if}}
+                    <span class="dossiers-featured-cta">
+                        Dossier lesen
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="16" height="16">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </span>
+                </div>
+                {{#if feature_image}}
+                <div class="dossiers-featured-image">
+                    <img src="{{img_url feature_image size="md"}}" alt="{{title}}" loading="eager">
+                </div>
+                {{/if}}
+            </a>
+        </div>
+        {{/foreach}}
+        {{/get}}
+
+        {{! ── All posts list ── }}
+        <div class="dossiers-list-wrap fade-up">
+            <p class="dossiers-list-label">Alle Publikationen</p>
+
+            <ul class="dossiers-list" id="dossiers-list">
+                {{#get "posts" limit="50" order="published_at desc" include="tags"}}
+                {{#foreach posts}}
+                <li class="dossier-item"
+                    data-title="{{title}}"
+                    data-tags="{{#foreach tags}}{{slug}} {{/foreach}}"
+                    data-excerpt="{{excerpt words="10"}}">
+                    <a href="{{url}}" class="dossier-item-link">
+                        <div class="dossier-item-thumb">
+                            {{#if feature_image}}
+                            <img src="{{img_url feature_image size="xs"}}" alt="{{title}}" loading="lazy">
+                            {{else}}
+                            <div class="dossier-item-thumb-placeholder">
+                                {{#if primary_tag}}<span>{{primary_tag.name}}</span>{{/if}}
+                            </div>
+                            {{/if}}
+                        </div>
+                        <div class="dossier-item-body">
+                            <div class="dossier-item-meta">
+                                {{#if primary_tag}}
+                                <span class="dossier-item-tag">{{primary_tag.name}}</span>
+                                <span class="dossier-item-meta-dot"></span>
+                                {{/if}}
+                                <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD. MMMM YYYY"}}</time>
+                            </div>
+                            <h4 class="dossier-item-title">{{title}}</h4>
+                            {{#if excerpt}}
+                            <p class="dossier-item-excerpt">{{excerpt words="25"}}</p>
+                            {{/if}}
+                        </div>
+                    </a>
+                </li>
+                {{/foreach}}
+                {{/get}}
+            </ul>
+
+            <p class="dossiers-no-results" id="dossiers-no-results" hidden>Keine Dossiers für diese Suche oder Kategorie.</p>
+        </div>
+
+    </div>
+</main>
+{{/page}}

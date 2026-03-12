@@ -1,0 +1,54 @@
+{{!< default}}
+
+{{#page}}
+<main class="site-main gewerke-main">
+    <div class="container">
+
+        <header class="gewerke-page-header fade-up">
+            <h1 class="gewerke-page-title">Die Gewerke.</h1>
+            <p class="gewerke-page-desc">Entdecken Sie material- und prozessspezifische Forschung für Ihre Disziplin.</p>
+
+            <div class="gewerke-search-wrap">
+                <svg class="gewerke-search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                <input
+                    type="search"
+                    id="gewerke-search"
+                    class="gewerke-search-input"
+                    placeholder="Gewerke oder Materialien suchen …"
+                    autocomplete="off">
+            </div>
+        </header>
+
+        <div class="gewerke-grid" id="gewerke-grid">
+            {{#get "tags" filter="visibility:public" limit="50" order="count.posts desc"}}
+            {{#foreach tags}}
+            <a href="{{url}}" class="gewerk-card fade-up" data-name="{{name}}" data-desc="{{description}}">
+                <div class="gewerk-card-media">
+                    {{#if feature_image}}
+                    <img src="{{feature_image}}" alt="{{name}}" loading="lazy">
+                    {{else}}
+                    <div class="gewerk-card-placeholder"></div>
+                    {{/if}}
+                </div>
+                <div class="gewerk-card-overlay"></div>
+                <div class="gewerk-card-content">
+                    <div class="gewerk-card-top">
+                        <h3 class="gewerk-card-name">{{name}}</h3>
+                        <span class="gewerk-card-count">{{count.posts}} Dossiers</span>
+                    </div>
+                    {{#if description}}
+                    <p class="gewerk-card-desc-text">{{description}}</p>
+                    {{/if}}
+                </div>
+            </a>
+            {{/foreach}}
+            {{/get}}
+        </div>
+
+        <p class="gewerke-no-results" id="gewerke-no-results" hidden>Keine Ergebnisse für diese Suche.</p>
+
+    </div>
+</main>
+{{/page}}
